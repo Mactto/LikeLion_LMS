@@ -26,6 +26,16 @@ const userSchema = mongoose.Schema({
         type: String
     },
     tokenExp: {
-        type: NUmber
+        type: Number
     }
 })
+
+userSchema.methods.comparePassword = (inputPassword, cb) => {
+    if (inputPassword === this.password) {
+        cb(null, true);
+    } else {
+        cb('error');
+    }
+}
+
+module.exports = mongoose.model('users', userSchema, 'users');
