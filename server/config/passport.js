@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 
 module.exports = () => {
@@ -16,7 +17,7 @@ module.exports = () => {
         })
     });
 
-    passport.use('local', new LocalStrategy({
+    passport.use(new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         session: true,
@@ -34,4 +35,12 @@ module.exports = () => {
             });
         });
     }));
+
+    passport.use(new GoogleStrategy({
+        clientID: "44131842133-bu02afoee0urvhsm30569vhmn4vom40a.apps.googleusercontent.com",
+        clientSecret: "uzMFi4e6yeB4uSw-4qvwgXW6",
+        callbackURL: "/auth/google/callback"
+    }, (token, tokenSecret, profile, done) => {
+        console.log(profile);
+    }))
 };

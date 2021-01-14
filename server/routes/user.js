@@ -3,9 +3,26 @@ const passport =require('passport');
 const router = express.Router();
 const User = require('../models/User');
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
-    console.log(req);
+router.get('/google', (req, res) => {
+    passport.authenticate('google', {
+        scope: ['https://www.googleapis.com/auth/plus.login']
+    })
 })
+
+router.get('/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/'
+    }), (req, res) => {
+        res.redirect('/');
+    }
+) 
+
+router.post('/login',
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    })
+)
 
 router.post('/register', (req, res) => {
     User.create({
