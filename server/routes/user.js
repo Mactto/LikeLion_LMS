@@ -2,39 +2,23 @@ const express = require('express');
 const passport =require('passport');
 const router = express.Router();
 const User = require('../models/User');
+const cors = require('cors');
 
-router.get('/google', (req, res) => {
-    passport.authenticate('google', {
-        scope: ['https://www.googleapis.com/auth/plus.login']
-    })
-})
+router.use(cors());
 
-router.get('/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/'
-    }), (req, res) => {
-        res.redirect('/');
-    }
-) 
+router.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile']})
+);
 
-router.post('/login',
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login'
-    })
+router.get('/auth/google/callback',
+    passport.authenticate('google', 
+    { failureRedirect: '/api/user/fail', successRedirect: '/api' }
+    )
 )
 
-router.post('/register', (req, res) => {
-    User.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        student_id: req.body.student_id,
-        
-    }, function(err) {
-        if(err) throw err;
-        console.log("okok2");
-    });
+router.get('/fail', (req, res) => {
+    res.send("failed");
 })
+
 
 module.exports = router;

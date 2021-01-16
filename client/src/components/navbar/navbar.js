@@ -1,18 +1,21 @@
 import React from 'react'
-import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
+import {Navbar, Nav} from 'react-bootstrap';
+import RightNav from './Section/RightNav';
+
 
 function navbar() {
     return (
-        <AppBar position="static">
-            <Toolbar>
-                <IconButton edge="start" className="start" color="inherit" aria-label="menu">
-                </IconButton>
-                <Typography variant="h6" className="title">
-                News
-                </Typography>
-                <Button color="inherit">Login</Button>
-            </Toolbar>
-        </AppBar>
+        <div>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                <Nav className="mr-auto">
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#features">Features</Nav.Link>
+                <Nav.Link href="#pricing">Pricing</Nav.Link>
+                </Nav>
+                <RightNav />
+            </Navbar>
+        </div>
     )
 }
 

@@ -5,7 +5,7 @@ import axios from 'axios';
 function LandingPage() {
 
     const googleBtnHandler = () => {
-        axios.get('/user/google')
+        axios.get('api/user/auth/google')
         .then(res => console.log(res))
     }
 

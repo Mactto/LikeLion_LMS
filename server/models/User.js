@@ -1,41 +1,16 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
+    googleId: {
+        type: String,
+    },
     name: {
-        type: String,
-        maxlength: 50
-    },
-    email: {
-        type: String,
-        trim: true,
-        unique: 1
-    },
-    password: {
-        type: String,
-        minlength: 4
-    },
-    student_id: {
-        type: Number,
-        maxlength: 8
+        type:String,
     },
     role: {
         type: Number,
         default: 0
     },
-    token: {
-        type: String
-    },
-    tokenExp: {
-        type: Number
-    }
 })
-
-userSchema.methods.comparePassword = (inputPassword, cb) => {
-    if (inputPassword === this.password) {
-        cb(null, true);
-    } else {
-        cb('error');
-    }
-}
 
 module.exports = mongoose.model('users', userSchema, 'users');
