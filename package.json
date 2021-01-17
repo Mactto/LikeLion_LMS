@@ -23,6 +23,8 @@
     "mongoose": "^5.11.10",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
-    "react-bootstrap": "^1.4.3"
+    "react-bootstrap": "^1.4.3",
+    "react-calendar": "^3.3.0",
+    "reactjs-popup": "^2.0.4"
   }
 }

@@ -7,7 +7,7 @@ const cors = require('cors');
 router.use(cors());
 
 router.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile']})
+    passport.authenticate('google', { scope: 'email'})
 );
 
 router.get('/auth/google/callback',

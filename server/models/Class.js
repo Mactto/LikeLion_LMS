@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 
 const attendSchme = mongoose.Schema({
-    student_id: {
-        type: Number,
-        maxlength: 8
+    cName: {
+        type: String,
     },
     date: {
         type: String,
-
     },
     attendence: {
-        type: Boolean,
+        type: Array,
         default: false
     }
 })

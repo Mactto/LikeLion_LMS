@@ -7,7 +7,6 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((obj, done) => {
-    console.log(obj);
     done(null, obj);
 })
 
@@ -16,20 +15,24 @@ passport.use(new GoogleStrategy({
     clientSecret: "uzMFi4e6yeB4uSw-4qvwgXW6",
     callbackURL: "http://localhost:5000/api/user/auth/google/callback",
     proxy: true
-}, (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
-    User.findOne({"googleId": profile.id}, (err, user) => {
+}, (accessToken, refreshToken, res, done) => {
+    User.findOne({"googleId": res.id}, (err, user) => {
         if (err) return done(err);
         if (user) return done(null, user);
         else {
-            var newUser = User();
-            newUser.googleId = profile.id;
-            newUser.name = profile.displayName;
-            newUser.save((err) => {
-                if(err) throw err;
-                console.log("새 유저 등록 완료");
-                return done(null, newUser);
-            })
+            if (res.emails[0].value.includes("likelion.org")) {
+                var newUser = User();
+                newUser.googleId = res.id;
+                newUser.name = res.displayName;
+                newUser.save((err) => {
+                    if(err) throw err;
+                    console.log("새 유저 등록 완료");
+                    return done(null, newUser);
+            })}
+            else {
+                console.log("likelion.org 계정만 로그인 가능합니다.")
+                return done(null, null);
+            }
         }
     })
 }))
