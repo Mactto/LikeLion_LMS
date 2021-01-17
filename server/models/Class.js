@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const attendSchme = mongoose.Schema({
-    cName: {
+    title: {
         type: String,
     },
     date: {
