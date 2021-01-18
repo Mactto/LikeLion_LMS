@@ -22,10 +22,11 @@ h1 {
   }
   .popup_inner {
     position: absolute;
-    left: 25%;
-    right: 25%;
+    left: 30%;
+    right: 30%;
     top: 25%;
     bottom: 25%;
     margin: auto;
+    padding: 2%;
     background: white;
   }

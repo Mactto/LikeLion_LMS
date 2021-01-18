@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const db = require('./models/User');
 const config = require('./config/dev');
 const passport = require('passport');
 const passportConfig = require('./config/passport')
@@ -32,6 +31,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/user', require('./routes/user'));
+app.use('/api/class', require('./routes/class'));
 
 app.get('/api', (req, res) => {
     res.send("home");

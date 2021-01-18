@@ -7,11 +7,13 @@ const attendSchme = mongoose.Schema({
     date: {
         type: String,
     },
+    enableTime: {
+        type: String,
+    },
     attendence: {
         type: Array,
         default: false
     }
 })
 
-const Attendance = mongoose.model('Attendence', attendSchme);
-module.exports = {Attendance};
+module.exports = mongoose.model('class', attendSchme, 'class');

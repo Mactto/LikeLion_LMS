@@ -1,14 +1,24 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Calendar from 'react-calendar';
-import "./Sections/Calendar.css";
 import {Button, ListGroup} from 'react-bootstrap';
 import Popup from "../utils/Popup/Popup";
+import "./Sections/Calendar.css";
+import axios from 'axios';
 
 function LandingPage() {
     const [value, onChange] = useState(new Date());
     const [showPopup, setShowPopup] = useState(false);
+    const [classes, setClasses] = useState([]);
+    const [clickDay, setClickDay] = useState(value);
+
+    useEffect(() => {
+        axios.get('/api/class/getClass').then(res => {
+            setClasses(res.data);
+        })
+    }, [])
     
     const onClickDayHandler = (value, e) => {
+        setClickDay(value);
         setShowPopup(true);
     }
 
@@ -16,9 +26,6 @@ function LandingPage() {
         setShowPopup(false);
     }
 
-    const addClassHandler = () => {
-        
-    }
 
   return (
     <div style={{display: "flex", height: "60vh", justifyContent: "center", alignItems: "center"}}>
@@ -26,15 +33,17 @@ function LandingPage() {
         <Calendar
             onChange={onChange}
             value={value}
+            onClickDay={onClickDayHandler}
         />
         <ListGroup style={{width: "400px"}}>
-            <ListGroup.Item action variant="secondary" onClick={onClickDayHandler}>
-                Success
+            {classes.map((item, index) => (
+            <ListGroup.Item action variant="secondary" key={index} onClick={onClickDayHandler}>
+                {item.title}
             </ListGroup.Item>
+            ))}
         </ListGroup>
         </div>
-        <Button variant="primary" onClick={{addClassHandler}}>수업추가</Button>
-      {showPopup ? <Popup closeHandler={closeBtnHandler}/> : null}
+      {showPopup ? <Popup closeHandler={closeBtnHandler} day={clickDay}/> : null}
     </div>
   );
 }
