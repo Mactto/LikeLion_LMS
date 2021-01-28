@@ -33,9 +33,6 @@ app.use(passport.session());
 app.use('/api/user', require('./routes/user'));
 app.use('/api/class', require('./routes/class'));
 
-app.get('/api', (req, res) => {
-    res.send("home");
-})
 
 app.listen(port, () => {
     console.log('Server is Working...');
