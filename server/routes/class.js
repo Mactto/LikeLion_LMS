@@ -29,7 +29,7 @@ router.post('/attendence', (req, res) => {
     console.log(classId);
     Class.findOneAndUpdate(
         {_id: classId},
-        {"$push": {"attendence": "asdfasdf"}},
+        {"$push": {"attendence": "최세환"}},
         (err, result) => {
             if(err) res.json({success: false})
             res.status(200).json({success: true, result: result})
